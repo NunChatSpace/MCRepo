@@ -19,7 +19,7 @@ type FirebaseService struct {
 }
 
 func SetupFirebaseService() Interface.IRTDB {
-	opt := option.WithCredentialsFile("./Delivery/Service/mooncoinrtdb-firebase-adminsdk-yioeo-8ca4bac65b.json")
+	opt := option.WithCredentialsFile("./mooncoinrtdb-firebase-adminsdk-yioeo-36db39fffa.json")
 	config := &firebase.Config{
 		ProjectID:   "mooncoinrtdb",
 		DatabaseURL: "https://mooncoinrtdb-default-rtdb.firebaseio.com",
