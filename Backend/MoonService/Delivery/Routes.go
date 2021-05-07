@@ -3,7 +3,7 @@ package Delivery
 import (
 	"moonservice/Interface"
 
-	"github.com/gofiber/fiber"
+	"github.com/gofiber/fiber/v2"
 )
 
 type RequestHandler struct {
@@ -18,15 +18,15 @@ func SetupRoute(app *fiber.App, ms Interface.IMoonService) {
 		MS: ms,
 	}
 
-	app.Get("/", func(c *fiber.Ctx) {
-		c.Status(fiber.StatusOK).JSON(fiber.Map{
+	app.Get("/", func(c *fiber.Ctx) error {
+		return c.Status(fiber.StatusOK).JSON(fiber.Map{
 			"success": true,
 			"message": "You are at the endpoint 😉",
 		})
 	})
 
-	app.Post("/buy", func(c *fiber.Ctx) {
+	app.Post("/buy", func(c *fiber.Ctx) error {
 		resp := handler.MS.BuyMOON(c)
-		c.JSON(resp)
+		return c.JSON(resp)
 	})
 }

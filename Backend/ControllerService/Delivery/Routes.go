@@ -3,7 +3,7 @@ package Delivery
 import (
 	"controller/Interface"
 
-	"github.com/gofiber/fiber"
+	"github.com/gofiber/fiber/v2"
 )
 
 type RequestHandler struct {
@@ -16,15 +16,15 @@ func SetupRoute(app *fiber.App, ud Interface.IUserData) {
 	handler = RequestHandler{
 		UD: ud,
 	}
-	app.Get("/", func(c *fiber.Ctx) {
-		c.Status(fiber.StatusOK).JSON(fiber.Map{
+	app.Get("/", func(c *fiber.Ctx) error {
+		return c.Status(fiber.StatusOK).JSON(fiber.Map{
 			"success": true,
 			"message": "You are at the endpoint 😉",
 		})
 	})
 
-	app.Get("/userinfo", func(c *fiber.Ctx) {
+	app.Get("/userinfo", func(c *fiber.Ctx) error {
 		resp := handler.UD.GetHistory(c)
-		c.JSON(resp)
+		return c.JSON(resp)
 	})
 }

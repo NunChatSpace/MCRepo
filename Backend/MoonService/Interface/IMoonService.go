@@ -4,7 +4,7 @@ import (
 	"moonservice/Model"
 	"time"
 
-	"github.com/gofiber/fiber"
+	"github.com/gofiber/fiber/v2"
 )
 
 type IMoonService interface {
