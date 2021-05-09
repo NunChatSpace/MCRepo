@@ -1,3 +1,4 @@
+
 # Overview
  - Backend
 	- Controller 
@@ -15,6 +16,8 @@
  - GET "localhost:8079/userinfo"
 	 - Input N/A
 	 - Output
+		 - When error Status is : 500
+		 - When Success Status is 200
 		```json
 		  {
 			"Status": 200,
@@ -41,6 +44,8 @@
 				 "SlippageRateMax": 2
 			 }
 	- Output
+		- When error Status is : 500
+		- When success Status is : 200
 		```json
 		 {
 			 "Status":200,
