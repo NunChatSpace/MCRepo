@@ -9,7 +9,7 @@
 	 - URL "localhost:3030/history" is used to show MOON coin transaction 
 
 # Architecture
-![Project Architecture](https://github.com/NunChatSpace/MCRepo)
+![Project Architecture](https://github.com/NunChatSpace/MCRepo/blob/main/ProjectArchitecture.png)
 
 # API
  - GET "localhost:8079/userinfo"
