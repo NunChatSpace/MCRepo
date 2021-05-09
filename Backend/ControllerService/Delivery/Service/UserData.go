@@ -6,9 +6,12 @@ import (
 	"controller/Interface"
 	"controller/Model"
 	"net/http"
+	"sort"
+	"time"
 
 	"github.com/gofiber/fiber/v2"
 	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
@@ -23,8 +26,9 @@ func (ud *UserData) GetHistory(ctx *fiber.Ctx) (resp Model.ResponseModel) {
 	dbStruct := Database.GetMongoDBStruct()
 	context := context.Background()
 	findOptions := options.Find()
-	// Sort by `price` field descending
-	findOptions.SetSort(bson.D{{"BuyDate", -1}})
+	// Sort by `BuyDate` field descending
+	findOptions.SetSort(bson.D{primitive.E{Key: "BuyDate", Value: -1}})
+
 	cursor, err := dbStruct.UserLogCollection.Find(context, bson.D{}, findOptions)
 
 	if err != nil {
@@ -36,8 +40,7 @@ func (ud *UserData) GetHistory(ctx *fiber.Ctx) (resp Model.ResponseModel) {
 		return resp
 	}
 
-	var dataContent []interface{}
-
+	var dataContent []Model.UserLog
 	for cursor.Next(context) {
 		var content Model.UserLog
 		err := cursor.Decode(&content)
@@ -60,6 +63,14 @@ func (ud *UserData) GetHistory(ctx *fiber.Ctx) (resp Model.ResponseModel) {
 		// fmt.Println(resp)
 		return resp
 	}
+
+	sort.SliceStable(dataContent, func(i, j int) bool {
+		dateI, _ := time.Parse("2006-01-02 15:04:05", dataContent[i].BuyDate)
+		dateY, _ := time.Parse("2006-01-02 15:04:05", dataContent[j].BuyDate)
+
+		return dateY.Before(dateI)
+	})
+
 	resp = Model.ResponseModel{
 		Status:     http.StatusOK,
 		Message:    "Getting data is successfully",
