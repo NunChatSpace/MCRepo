@@ -55,7 +55,7 @@ export default class HistoryView extends Component {
                         <div>
                             <div style={style}>
                                 <label>Moon left ≈
-                                    <span data-atd="moon-left-label" style={{marginRight:20}}>
+                                    <span data-atd="moon-left-label" id="moon-left-label" style={{marginRight:20}}>
                                     {this.precisionRoundMod(this.state.MoonCoin, 8)}
                                     </span>
                                     MOON

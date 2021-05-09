@@ -216,7 +216,7 @@ export default class BuyForm extends Component {
                             <div style={style}>
                                 <label>
                                     MOON ≈
-                                    <span data-atd="moon-price-label" style={{marginRight:20}}>
+                                    <span data-atd="moon-price-label" id="moon-price-label" style={{marginRight:20}}>
                                         {this.precisionRoundMod(this.state.exRateTHBT, 2)}
                                     </span>
                                     THBT
@@ -227,7 +227,7 @@ export default class BuyForm extends Component {
                             <div style={styleBalance}>
                                 <label>
                                     You have
-                                    <span data-atd="balance-label" style={{marginRight:20}}>
+                                    <span data-atd="balance-label" id="balance-label" style={{marginRight:20}}>
                                         {this.precisionRoundMod(this.state.balance, 2)}
                                     </span>
                                     THBT
