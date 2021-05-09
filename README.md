@@ -8,6 +8,9 @@
 	 - URL "localhost:3030/buy" is used to let you buy MOON 
 	 - URL "localhost:3030/history" is used to show MOON coin transaction 
 
+# Architecture
+![Project Architecture](https://github.com/NunChatSpace/MCRepo)
+
 # API
  - GET "localhost:8079/userinfo"
 	 - Input N/A
