@@ -1,0 +1,18 @@
+version: "3.8"
+
+services:
+  app:
+    image: golang:1.16
+    ports: 
+      - "8079:8079"
+    volumes:
+      - .:/go/src/app
+    environment: 
+      - "TZ=Asia/Bangkok"
+    working_dir: /go/src/app/
+    command: ./controller
+
+networks:
+  default:
+    external:
+      name: mooncoin-network

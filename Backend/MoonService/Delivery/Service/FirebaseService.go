@@ -18,16 +18,16 @@ type FirebaseService struct {
 	Client *db.Client
 }
 
-func SetupFirebaseService() Interface.IRTDB {
-	opt := option.WithCredentialsFile("./mooncoinrtdb-firebase-adminsdk-yioeo-36db39fffa.json")
+func SetupFirebaseService(credentialFile string, projectID string, dbUrl string) (Interface.IRTDB, error) {
+	opt := option.WithCredentialsFile(credentialFile)
 	config := &firebase.Config{
-		ProjectID:   "mooncoinrtdb",
-		DatabaseURL: "https://mooncoinrtdb-default-rtdb.firebaseio.com",
+		ProjectID:   projectID,
+		DatabaseURL: dbUrl,
 	}
 	app, err := firebase.NewApp(context.Background(), config, opt)
 	if err != nil {
 		errText := fmt.Sprintf("error initializing app: %v", err)
-		panic(errText)
+		return nil, errors.New(errText)
 	}
 
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
@@ -38,12 +38,12 @@ func SetupFirebaseService() Interface.IRTDB {
 	cli, err := app.Database(ctx)
 	if err != nil {
 		errText := fmt.Sprintf("Error initializing database client: %v", err)
-		panic(errText)
+		return nil, errors.New(errText)
 	}
 
 	return &FirebaseService{
 		Client: cli,
-	}
+	}, nil
 }
 
 func (fs *FirebaseService) GetMoonCoinFromRTDB() (mcModel Model.RTDBMoonCoinModel, err error) {

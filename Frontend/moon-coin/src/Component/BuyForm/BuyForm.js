@@ -280,8 +280,7 @@ export default class BuyForm extends Component {
                         </Grid>
                         <Grid item xs={12}>
                             <div style={commonSyle}>
-                            <Button variant="contained" color="primary" style={componentWidth} onClick={this.buyMOONCoin}> Buy</Button>
-                                {/* <BuyButton variant="contained" color="primary" style={componentWidth} value={commonProps} onBuy={this.onBuy}> Buy</BuyButton> */}
+                            <Button variant="contained" color="primary" id="buy-btn" data-atd="buy-btn" style={componentWidth} onClick={this.buyMOONCoin}> Buy</Button>
                             </div>
                            
                         </Grid>

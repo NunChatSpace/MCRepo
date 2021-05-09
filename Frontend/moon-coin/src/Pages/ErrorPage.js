@@ -43,7 +43,7 @@ export default class ErrorPage extends Component {
                         </Grid>
                         <Grid item xs={12}>
                             <div style={commonSyle}>
-                                <Button variant="contained" color="primary" style={componentWidth} onClick={() => {this.setState({screenState: 'toBuy'})}}>HOME</Button>
+                                <Button variant="contained" color="primary"  id="back-btn" data-atd="back-btn"  style={componentWidth} onClick={() => {this.setState({screenState: 'toBuy'})}}>HOME</Button>
                             </div>
                         </Grid>
                     </Grid>

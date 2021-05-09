@@ -31,17 +31,27 @@ export default class SuccessPage extends Component {
                         </Grid>
                         <Grid item xs={12}>
                             <div style={commonSyle}>
-                                <label>You bought {state.Data.MOON} MOON</label>
+                                <label>You bought 
+                                    <span data-atd="success-moon-label" style={{marginRight:20}}>
+                                        {state.Data.MOON}
+                                    </span>
+                                     MOON
+                                </label>
                             </div>
                         </Grid>
                         <Grid item xs={12}>
                         <div style={commonSyle}>
-                                <label>With {state.Data.THBT} THBT</label>
+                                <label>With 
+                                    <span data-atd="success-thbt-label" style={{marginRight:20}}>
+                                        {state.Data.THBT} 
+                                    </span>
+                                    THBT
+                                </label>
                             </div>
                         </Grid>
                         <Grid item xs={12}>
                             <div style={commonSyle}>
-                                <Button variant="contained" color="primary" style={componentWidth} onClick={() => {this.setState({screenState: 'toBuy'})}}>HOME</Button>
+                                <Button variant="contained" color="primary" id="back-btn" data-atd="back-btn" style={componentWidth} onClick={() => {this.setState({screenState: 'toBuy'})}}>HOME</Button>
                             </div>
                         </Grid>
                     </Grid>

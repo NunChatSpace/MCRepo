@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+    mooncoin: 
+        container_name: mooncoin
+        build: 
+            context: .
+            dockerfile: Dockerfile
+        volumes: 
+            - '.:/app'
+            - '/app/node_modules'
+        ports: 
+            - "3000:3000"
+        environment:
+            - NGINX_HOST=mooncoin.com
+            - NGINX_PORT=3000
+            - "TZ=Asia/Bangkok"
+        command: npm start

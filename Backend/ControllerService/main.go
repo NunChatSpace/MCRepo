@@ -14,6 +14,7 @@ import (
 )
 
 func main() {
+
 	fiberApp := fiber.New()
 	var ConfigDefault = cors.Config{
 		AllowOrigins: "*",
@@ -21,7 +22,7 @@ func main() {
 		AllowHeaders: "Origin, Content-Type, Accept, Content-Length, Authorization, access-control-allow-origin, access-control-allow-headers, access-control-allow-methods",
 	}
 	fiberApp.Use(cors.New(ConfigDefault))
-	client, err := mongo.NewClient(options.Client().ApplyURI("mongodb://localhost:27017/"))
+	client, err := mongo.NewClient(options.Client().ApplyURI("mongodb://mongo/"))
 	if err != nil {
 		panic(err)
 	}

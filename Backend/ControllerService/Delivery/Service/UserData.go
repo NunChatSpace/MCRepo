@@ -5,11 +5,11 @@ import (
 	"controller/Database"
 	"controller/Interface"
 	"controller/Model"
-	"log"
 	"net/http"
 
 	"github.com/gofiber/fiber/v2"
 	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 type UserData struct {
@@ -22,13 +22,18 @@ func NewUserData() Interface.IUserData {
 func (ud *UserData) GetHistory(ctx *fiber.Ctx) (resp Model.ResponseModel) {
 	dbStruct := Database.GetMongoDBStruct()
 	context := context.Background()
+	findOptions := options.Find()
+	// Sort by `price` field descending
+	findOptions.SetSort(bson.D{{"BuyDate", -1}})
+	cursor, err := dbStruct.UserLogCollection.Find(context, bson.D{}, findOptions)
 
-	cursor, err := dbStruct.UserLogCollection.Find(context, bson.D{})
 	if err != nil {
 		resp = Model.ResponseModel{
 			Status:  http.StatusInternalServerError,
-			Message: "Get failed",
+			Message: err.Error(),
 		}
+		// fmt.Println(resp)
+		return resp
 	}
 
 	var dataContent []interface{}
@@ -41,13 +46,19 @@ func (ud *UserData) GetHistory(ctx *fiber.Ctx) (resp Model.ResponseModel) {
 				Status:  http.StatusInternalServerError,
 				Message: err.Error(),
 			}
+			// fmt.Println(resp)
 			ctx.JSON(resp)
 		}
 		dataContent = append(dataContent, content)
 	}
 
 	if err := cursor.Err(); err != nil {
-		log.Fatal(err)
+		resp = Model.ResponseModel{
+			Status:  http.StatusInternalServerError,
+			Message: err.Error(),
+		}
+		// fmt.Println(resp)
+		return resp
 	}
 	resp = Model.ResponseModel{
 		Status:     http.StatusOK,
@@ -55,5 +66,6 @@ func (ud *UserData) GetHistory(ctx *fiber.Ctx) (resp Model.ResponseModel) {
 		DataLength: len(dataContent),
 		Data:       dataContent,
 	}
+	// fmt.Println(resp)
 	return resp
 }

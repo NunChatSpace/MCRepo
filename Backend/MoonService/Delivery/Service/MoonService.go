@@ -25,6 +25,7 @@ func (ms *MoonService) BuyMOON(c *fiber.Ctx) (resp Model.ResponseModel) {
 			Status:  http.StatusInternalServerError,
 			Message: err.Error(),
 		}
+		// fmt.Println(resp)
 		return resp
 	}
 
@@ -34,6 +35,7 @@ func (ms *MoonService) BuyMOON(c *fiber.Ctx) (resp Model.ResponseModel) {
 			Status:  http.StatusInternalServerError,
 			Message: err.Error(),
 		}
+		// fmt.Println(resp)
 		return resp
 	}
 	mcc := new(MoonCoinCalculator)
@@ -45,6 +47,7 @@ func (ms *MoonService) BuyMOON(c *fiber.Ctx) (resp Model.ResponseModel) {
 			Status:  500,
 			Message: "Exchange rate is exceed the slippage telorance",
 		}
+		// fmt.Println(resp)
 		c.JSON(resp)
 
 		return resp
@@ -57,6 +60,7 @@ func (ms *MoonService) BuyMOON(c *fiber.Ctx) (resp Model.ResponseModel) {
 			Status:  500,
 			Message: err.Error(),
 		}
+		// fmt.Println(resp)
 		return resp
 	}
 
@@ -72,13 +76,14 @@ func (ms *MoonService) BuyMOON(c *fiber.Ctx) (resp Model.ResponseModel) {
 	}
 
 	ms.UpdateMoon(time.Now(), body.Username, body.BuyWith, buyLog)
-
+	// fmt.Println(resp)
 	return resp
 }
 
 func (ms *MoonService) UpdateMoon(date time.Time, username string, thbt float64, buyLog []Model.BuyLogModel) {
 	dbStruct := Database.GetMongoDBStruct()
 	currentTime := time.Now().Format("2006-01-02 15:04:05")
+	fmt.Printf("Current time: %s", currentTime)
 	for i := range buyLog {
 		context := context.Background()
 		exchangeRateTxt := fmt.Sprintf("1 MOON = %.15f | %.15f", 1/buyLog[i].ExchangeRate, buyLog[i].ExchangeRate)
